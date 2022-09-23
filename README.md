@@ -1,8 +1,8 @@
-# EniSortir
+# ENI-Sortie
 
 Projet de Groupe pour la formation DWM de l'ENI
 
-Theme = On va sortir version Campus ENI
+Sur le theme du site OVS.
 
 ## Installation => composer install , npm install  
 
