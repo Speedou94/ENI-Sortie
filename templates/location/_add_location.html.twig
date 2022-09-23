@@ -1,0 +1,17 @@
+
+<form action=" {{ path('app_location_new',{origin:app.request.attributes.get('_route')}) }} " method="post" id="formLocation">
+{{ form_start(formLocation) }}
+    <div class="row">
+        <div class="col-12">{{ form_label(formLocation.city) }}{{  form_widget(formLocation.city) }}</div>
+        <div class="col-12">{{ form_label(formLocation.name) }}{{  form_widget(formLocation.name) }}</div>
+        <div class="col-12">{{ form_label(formLocation.street) }}{{  form_widget(formLocation.street) }}</div>
+        <div class="col-6">{{ form_label(formLocation.latitude) }}{{  form_widget(formLocation.latitude) }}</div>
+        <div class="col-6">{{ form_label(formLocation.longitude) }}{{  form_widget(formLocation.longitude) }}</div>
+        <div class="col-12 d-flex justify-content-around">
+            <button type="button" class="btn btn-secondary mt-4" data-bs-dismiss="modal">Annuler</button>
+            {{ form_label(formLocation.submit) }}{{  form_widget(formLocation.submit) }}</div>
+    </div>
+    <input type="hidden" name="idOrigin"
+           value="{{ idEvent }}"/>
+{{ form_end(formLocation) }}
+</form>

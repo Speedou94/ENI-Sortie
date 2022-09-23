@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-2" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('failed') %}
+        <div class="alert alert-danger mt-2" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="mt-5 mx-lg-5">
+        <div class="">
+            {% include 'event/_form.html.twig' %}
+        </div>
+        {% include 'event/_liste.html.twig' %}
+    </div>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{parent()}}
+    {{ encore_entry_script_tags('filterCheckbox') }}
+
+{% endblock %}

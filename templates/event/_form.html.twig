@@ -1,0 +1,50 @@
+<h2 class="filter-title">Filtrer les sorties</h2>
+{{ form_start(form) }}
+<div class="d-flex row justify-content-around event-filter">
+    <div class="col-5">
+        <div class="d-none d-lg-block">
+            {{  form_label(form.campus) }}
+            {{ form_widget(form.campus) }}
+        </div>
+        <div>
+            {{ form_label(form.searchBar) }}
+            {{ form_widget(form.searchBar) }}
+        </div>
+        <div class="d-flex justify-content-around align-items-center my-2">
+            <p class="my-auto">Entre</p>
+            <div class="col-4">
+                {{ form_widget(form.minDate) }}
+                {{ form_errors(form.minDate) }}
+            </div>
+            <p class="my-auto">et</p>
+            <div class="col-4">
+                {{ form_widget(form.maxDate) }}
+                {{ form_errors(form.maxDate) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-3 d-flex flex-column m-auto event-filter-checkbox">
+        <div>
+        {{ form_widget(form.isOrganizer) }}
+        {{ form_label(form.isOrganizer) }}
+        </div>
+
+        <div>
+        {{ form_widget(form.isRegistred) }}
+        {{ form_label(form.isRegistred) }}
+        </div>
+        <div>
+        {{ form_widget(form.isNotRegistred) }}
+        {{ form_label(form.isNotRegistred) }}
+        </div>
+        <div>
+        {{ form_widget(form.isPassed) }}
+        {{ form_label(form.isPassed) }}
+        </div>
+    </div>
+    <div class="col-2">
+        <button type="submit" class="btn btn-primary my-auto">Rechercher</button>
+    </div>
+
+</div>
+{{ form_end(form) }}

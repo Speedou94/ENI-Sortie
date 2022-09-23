@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-2" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container">
+        <h1 class="mt-4">Modification de l'utilisateur</h1>
+
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.pseudo) }}
+            {{ form_widget(form.pseudo) }}
+            <div class="form_error">
+                {{ form_errors(form.pseudo) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.firstName) }}
+            {{ form_widget(form.firstName) }}
+            <div class="form_error">
+                {{ form_errors(form.firstName) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.lastName) }}
+            {{ form_widget(form.lastName) }}
+            <div class="form_error">
+                {{ form_errors(form.lastName) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.phoneNumber) }}
+            {{ form_widget(form.phoneNumber) }}
+            <div class="form_error">
+                {{ form_errors(form.phoneNumber) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+            <div class="form_error">
+                {{ form_errors(form.email) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.campus) }}
+            {{ form_widget(form.campus) }}
+            <div class="form_error">
+                {{ form_errors(form.campus) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.imageFile) }}
+            {{ form_widget(form.imageFile) }}
+
+            <div class="form_error">
+                {{ form_errors(form.imageFile) }}
+            </div>
+        </div>
+        <div class="d-flex mt-4 justify-content-end">
+            <a class="btn bg-secondary me-2" href="{{ path('app_event_list') }}">Annuler</a>
+            <a href="{{ path('app_user_edit-password', {id:app.user.id}) }}" class="btn btn-danger me-2">modifier mot de passe</a>
+            <button class="btn btn-primary" type="submit">Enregistrer</button>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

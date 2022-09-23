@@ -1,0 +1,40 @@
+<div style="
+    background-color: #222222;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    z-index: -1;
+">
+    <form enctype="multipart/form-data" method="post" action="{{ path('app_user_upload_csv') }}"
+        style="
+        background-color: #303030;
+        padding: 20px;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        border-radius: 10px;
+    ">
+        <h1 style="
+            color: #e5e5e5;
+            ">Importer vos utilisateurs depuis un ficher CSV
+        </h1>
+        <input type="file" name="csvFile" style="
+            display: block;
+            margin: auto;
+            color: #5c70d6">
+        <div style="
+            margin-top: 20px;
+            ">
+            <button type="submit" style="margin-right: 40px">Envoyer</button>
+            <button type="reset" class="mt-5" id="go-back">Annuler</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('go-back').addEventListener('click', () => {
+        history.back();
+    });
+</script>

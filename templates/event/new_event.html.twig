@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Eni_sortir Ajouter sortie
+{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-2" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('failed') %}
+        <div class="alert alert-danger mt-2" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+<h1 class="text-center text-primary mt-5">{{ title }} </h1>
+{{ form_start(form) }}
+    <div class="row w-75 mx-auto mt-5">
+        <div class="col-12">{{ form_label(form.name) }}{{ form_widget(form.name) }}</div>
+        <div class="col-6">{{ form_label(form.campus) }}{{ form_widget(form.campus, { 'attr': {'disabled': true} }) }}</div>
+        <div class="col-6">{{ form_label(form.city)  }} {{ form_widget(form.city)}}</div>
+        <div class="col-3">{{ form_label(form.startAt) }}{{ form_widget(form.startAt) }}</div>
+        <div class="col-3">{{ form_label(form.deadLineInscriptionAt) }}{{ form_widget(form.deadLineInscriptionAt) }}</div>
+        <div class="col-6 d-flex align-items-end justify-content-around">
+            <label>Lieux
+                {% if edit == false%}
+            <select class="form-select mt-3" id="location" name="location" disabled>
+                <option value="0">choisir un lieu</option>
+            </select>
+                {% else %}
+                    {{ form_label(form.location)  }} {{ form_widget(form.location)}}
+                {% endif %}
+            </label>
+            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#modalLieux">
+                Ajouter un lieu
+            </button>
+
+        </div>
+        <div class="col-3">{{ form_label(form.maxPeople) }}{{ form_widget(form.maxPeople) }}</div>
+        <div class="col-3" >{{ form_label(form.duration) }}{{ form_widget(form.duration) }}</div>
+
+        <div class="col-12">{{ form_label(form.description) }}{{ form_widget(form.description) }}</div>
+        <div class="col-12 d-flex flex-column align-items-center" id="info"></div>
+        <div class="d-flex justify-content-end">
+            {{ form_label(form.submit) }}{{ form_widget(form.submit) }}
+            {% if edit == true %}
+            <a class="btn btn-light mt-4" href="{{ path('app_cancel_event',{id:idEvent}) }}">Supprimer la sortie</a>
+            {% endif %}
+            {% if activate == true %}
+                <a class="btn bg-secondary mt-4" href="{{ path('app_active_event',{id:idEvent}) }}">Activer la sortie</a>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {{ form_end(form) }}
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalLieux" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" id="exampleModalLabel">Ajout d'un lieu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% include('location/_add_location.html.twig') %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{{ encore_entry_script_tags('event') }}
+<script>
+    const urlApi = "{{ app_url_api }}"
+</script>
+{% endblock %}
+
+

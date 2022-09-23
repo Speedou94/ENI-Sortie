@@ -1,0 +1,28 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block page_title %}
+    <h1 class="display-2">Administration </h1>
+{% endblock %}
+
+   {% block content %}
+       {% for message in app.flashes('success') %}
+           <div class="alert alert-success mt-2" role="alert">
+               {{ message }}
+           </div>
+       {% endfor %}
+       {% for message in app.flashes('failed') %}
+           <div class="alert alert-danger mt-2" role="alert">
+               {{ message }}
+           </div>
+       {% endfor %}
+
+       {{ encore_entry_script_tags('app') }}
+       <div class="row w-50 mx-auto mt-3">
+           <div class="col-12">
+               {{ render_chart(chart) }}
+           </div>
+       </div>
+   {% endblock content %}
+
+
+
+

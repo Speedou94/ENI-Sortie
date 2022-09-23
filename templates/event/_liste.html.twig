@@ -1,0 +1,56 @@
+<h2 class="d-lg-none filter-title">Mes sorties</h2>
+<table class="table mt-5 event-table">
+    <thead>
+    <tr>
+        <th scope="col">Nom de la sortie</th>
+        <th scope="col">Date de sortie</th>
+        <th scope="col" class="d-none d-lg-table-cell">Cloture inscription</th>
+        <th scope="col" class="d-none d-lg-table-cell">inscrit/place</th>
+        <th scope="col" class="d-none d-lg-table-cell">etat</th>
+        <th scope="col" class="d-none d-lg-table-cell">inscrit</th>
+        <th scope="col" class="d-none d-lg-table-cell">organisateur</th>
+        <th scope="col" class="">action</th>
+        <th class="d-lg-none">lieu</th>
+    </thead>
+    <tbody>
+
+    {% for event in events %}
+            <tr>
+                <th>{{ event.name }}</th>
+                <td>{{ event.startAt | date("d/m/Y - H\\Hi") }}</td>
+                <td class="d-none d-lg-table-cell">{{ event.deadLineInscriptionAt | date("d/m/Y") }}</td>
+                <td class="d-none d-lg-table-cell">{{ event.registration.count }} / {{ event.maxPeople }}</td>
+                <td class="d-none d-lg-table-cell">{{ event.status.wording }}</td>
+                {% if app.user in event.registration %}
+                    <td class="d-none d-lg-table-cell">X</td>
+                {% else %}
+                    <td class="d-none d-lg-table-cell"></td>
+                {% endif %}
+                <td class="d-none d-lg-table-cell">{{ event.organizer.firstName }}</td>
+                <td class="">
+                    {% if event.status.wording == constant('App\\Entity\\Status::CREATE') %}
+                        <a href="{{ path('app_event_edit',{'id' : event.id}) }}">Modifier</a>
+                        <a href="{{ path('app_active_event', {'id': event.id}) }}">Publier</a>
+                    {% else %}
+                        <a href="{{ path('app_event_details',{'id':event.id}) }}">Afficher</a>
+                        {% if app.user == event.organizer and event.status.wording == constant('App\\Entity\\Status::OPEN') %}
+                            <a href="{{ path('app_cancel_event',{'id': event.id}) }}">Annuler</a>
+                        {% endif %}
+                    {% endif %}
+                    {% if app.user in event.registration and
+                        event.status.wording != constant('App\\Entity\\Status::CLOSE') and
+                        event.status.wording != constant('App\\Entity\\Status::IN_PROGRESS') and
+                        event.status.wording != constant('App\\Entity\\Status::PAST')and
+                        event.status.wording != constant('App\\Entity\\Status::CANCELED')%}
+                            <a href="{{ path('app_event_unsubscribe', {'id': event.id}) }}">Se désister</a>
+                        {% elseif event.status.wording == constant('App\\Entity\\Status::OPEN') and
+                            event.registration.count < event.maxPeople %}
+                            <a href="{{ path('app_event_subscribe',{'id': event.id}) }}">S'inscrire</a>
+                    {% endif %}
+                </td>
+                <td class="d-lg-none">{{ event.location.name }}</td>
+
+            </tr>
+    {% endfor %}
+    </tbody>
+</table>

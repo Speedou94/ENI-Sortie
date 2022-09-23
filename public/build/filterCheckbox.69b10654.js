@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[988],{8044:()=>{var e=document.getElementById("events_list_isRegistred"),t=document.getElementById("events_list_isNotRegistred");e.addEventListener("change",(function(e){t.checked&&(t.checked=!1)})),t.addEventListener("change",(function(t){e.checked&&(e.checked=!1)}))}},e=>{var t;t=8044,e(e.s=t)}]);

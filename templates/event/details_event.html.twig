@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} | Afficher Sortie {% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-2" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+<div class="container-fluid mt-5 p-3 mx-auto event-detail">
+
+    <h1>Detail de la sortie <span class="text-light">{{ event.name }}</span></h1>
+    <div class="d-flex flex-lg-row mt-1 event-detail-flex">
+        <div class="col-6">
+            <table class="table table-borderless">
+                <tbody>
+                <tr>
+                    <th class="d-none d-lg-table-cell flex-lg-row mt-2">Campus :</th>
+                    <td class="d-none d-lg-table-cell flex-lg-row mt-2">{{ event.campus.name }}</td>
+                </tr>
+                <tr>
+                    <th class="d-flex flex-lg-row mt-2">Date et heure de la sortie :</th>
+                    <td>{{ event.startAt ? event.startAt|date('Y-m-d H:i') : '' }}</td>
+                </tr>
+                <tr>
+                    <th class="d-flex flex-lg-row mt-2">Date limite d'inscription :</th>
+                    <td>{{ event.deadLineInscriptionAt ? event.deadLineInscriptionAt|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th class="d-flex flex-lg-row mt-2">Nombre de places disponibles :</th>
+                    <td>{{ event.registration.count }} / {{ event.maxPeople }}</td>
+                </tr>
+                <tr>
+                    <th class="d-flex flex-lg-row mt-2">Durée :</th>
+                    <td>{{ event.duration }} minutes</td>
+                </tr>
+                <tr>
+                    <th class="col-4">Description et infos :</th>
+                    <td>{{ event.description }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-6">
+            <table class="table table-borderless">
+                <tbody>
+                <tr>
+                    <th class="d-flex flex-lg-row mt-2">Lieu :</th>
+                    <td>{{ event.location.name }}</td>
+                </tr>
+                <tr>
+                    <th class="d-flex flex-lg-row mt-2">Rue :</th>
+                    <td>{{ event.location.street }}</td>
+                </tr>
+                <tr>
+                    <th class="d-flex flex-lg-row mt-2">Code postal :</th>
+                    <td>{{ event.location.city.zipCode }}</td>
+                </tr>
+                <tr>
+                    <th class="d-flex flex-lg-row mt-2">Latitude :</th>
+                    <td>{{ event.location.latitude }}</td>
+                </tr>
+                <tr>
+                    <th class="d-flex flex-lg-row mt-2">Longitude :</th>
+                    <td>{{ event.location.longitude }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-6  detail-event-user">
+            <h4 class="mt-4 text-light">Liste des participants inscrits</h4>
+            <div class="wrapper-table">
+                <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Nom/Prénom</th>
+                    <th>Contact</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for registration in event.registration %}
+                    <tr>
+                        <td><a href="{{ path('app_user_profil',{'id':registration.id}) }}">{{ registration.pseudo ? registration.pseudo : 'non renseigné'}}</a></td>
+                        <td>{{ registration.firstname }} {{ registration.lastname| upper }}</td>
+                        <td>   <button type="button" data-registration="{{registration.email}}" data-user-registration="{{ registration.firstname }}" class="btn btn-link registration-button" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                                Contacter
+                            </button></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+             <div class="col-6 map"> {% include ('location/mapping_location.html.twig') %}</div>
+    </div>
+</div>
+   {% include('contact/_event_contact.html.twig') %}
+
+{% endblock %}
+{% block javascripts%}
+    {{ parent() }}
+    {{ encore_entry_script_tags('detail') }}
+
+
+
+
+    <script>
+      
+    const latitude = {{ event.location.latitude }}
+    const longitude = {{ event.location.longitude }}
+
+    </script>
+
+{% endblock %}

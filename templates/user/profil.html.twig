@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} | Profil Participant {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid pt-4">
+
+    <h1 class="text-center">Profil participant</h1>
+
+    <div class="d-lg-table-cell flex-lg-row mt-2">
+        <div class="container">
+            <table>
+                {% if user.imageName is not empty %}
+                <img src="{{ vich_uploader_asset(user, 'imageFile') }}" width="320" alt="photo de profil">
+                {% endif %}
+            </table>
+
+        </div>
+
+        <div class="col-15" >
+            <table class="table table-borderless">
+                <tbody>
+                <tr>
+                    <th>Nom :</th>
+                    <td>{{ user.lastName }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom :</th>
+                    <td>{{ user.firstName }}</td>
+                </tr>
+                <tr>
+                    <th class="d-flex flex-lg-row">Pseudo :</th>
+                    <td>{{ user.pseudo }}</td>
+                </tr>
+                <tr>
+                    <th class="col-3">Email :</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th class="col-4">Campus :</th>
+                    <td>{{ user.campus }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a class="btn bg-primary me-2" href="javascript:history.go(-1)">Retour a la sortie</a>
+        </div>
+    </div>
+
+{% endblock %}

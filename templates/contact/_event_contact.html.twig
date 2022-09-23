@@ -1,0 +1,27 @@
+{% block body %}
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleModal"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form) }}
+                    {{ form_row(form.message) }}
+                    <input type="hidden" name="email" id="mail"/>
+                    <div class="d-flex justify-content-end">
+                        <div class="mb-3 me-2"> <button type="button" class="btn btn-secondary mt-4" data-bs-dismiss="modal">Close</button></div>
+                        {{ form_row(form.submit) }}
+                    </div>
+
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
